@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ArtistCard /> should render and match with the snapshot 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="ant-card ant-card-bordered ArtistCard__CustomCard-sc-1ka74hw-0 QWPKW"
+        data-testid="artist-card"
+      >
+        <div
+          class="ant-card-body"
+        >
+          <div
+            class="ArtistCard__Flex-sc-1ka74hw-1 dJWdjs"
+          >
+            <p
+              class="T__StyledText-gjlic1-0 kYcyRq"
+              data-testid="artwork-url-unavailable"
+            >
+              The artwork for this track or artist is not available.
+            </p>
+            <p
+              class="T__StyledText-gjlic1-0 kYcyRq"
+              data-testid="collection-name-unavailable"
+            >
+              Sorry this collection is not available.
+            </p>
+          </div>
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq"
+            data-testid="artist-name-unavailable"
+          >
+            Sorry this artist is not available.
+          </p>
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq"
+            data-testid="collection-price-unavailable"
+          >
+            Sorry price is not available yet.
+          </p>
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq"
+            data-testid="release-date-unavailable"
+          >
+            Release date for this collection is not available.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="ant-card ant-card-bordered ArtistCard__CustomCard-sc-1ka74hw-0 QWPKW"
+      data-testid="artist-card"
+    >
+      <div
+        class="ant-card-body"
+      >
+        <div
+          class="ArtistCard__Flex-sc-1ka74hw-1 dJWdjs"
+        >
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq"
+            data-testid="artwork-url-unavailable"
+          >
+            The artwork for this track or artist is not available.
+          </p>
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq"
+            data-testid="collection-name-unavailable"
+          >
+            Sorry this collection is not available.
+          </p>
+        </div>
+        <p
+          class="T__StyledText-gjlic1-0 kYcyRq"
+          data-testid="artist-name-unavailable"
+        >
+          Sorry this artist is not available.
+        </p>
+        <p
+          class="T__StyledText-gjlic1-0 kYcyRq"
+          data-testid="collection-price-unavailable"
+        >
+          Sorry price is not available yet.
+        </p>
+        <p
+          class="T__StyledText-gjlic1-0 kYcyRq"
+          data-testid="release-date-unavailable"
+        >
+          Release date for this collection is not available.
+        </p>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

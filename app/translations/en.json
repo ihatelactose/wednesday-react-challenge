@@ -13,5 +13,19 @@
   "repo_full_name_unavailable": "Repository full name unavaiable",
   "repository_stars": "Repository stars: {stars}",
   "repo_stars_unavailable": "Repository stars are unavaiable",
-  "wednesday_solutions": "Wednesday Solutions"
+  "wednesday_solutions": "Wednesday Solutions",
+  "artist_search": "Artist Search",
+  "artist_search_default": "Search results will be displayed here based on the artist you've searched above.",
+  "get_artist_details": "Please enter the name of the artist below.",
+  "artist_list": "List of artists, tracks, and collections.",
+  "matching_tracks": "Total number of tracks, artists, or collections found: {count}",
+  "artwork_url_unavailable": "The artwork for this track or artist is not available.",
+  "collection_name": "Collection name: {collectionName}",
+  "collection_name_unavailable": "Sorry this collection is not available.",
+  "artist_name": "Artist name: {artistName}",
+  "artist_name_unavailable": "Sorry this artist is not available.",
+  "collection_price": "Price: {currency} {collectionPrice}",
+  "collection_price_unavailable": "Sorry price is not available yet.",
+  "release_date_unavailable": "Release date for this collection is not available.",
+  "release_date": "Release date {releaseDate}"
 }
