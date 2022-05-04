@@ -13,7 +13,7 @@ import { injectSaga } from 'redux-injectors';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import { artistsContainerCreators } from './reducer';
-import { artistsContainerSaga } from './saga';
+import artistsContainerSaga from './saga';
 import { selectArtistsData, selectArtistsError, selectArtistsName } from './selectors';
 
 const Container = styled.div`
