@@ -31,7 +31,8 @@ export function ArtistCard({
   collectionName,
   collectionPrice,
   currency,
-  releaseDate
+  releaseDate,
+  previewUrl
 }) {
   return (
     <CustomCard data-testid="artist-card">
@@ -51,6 +52,12 @@ export function ArtistCard({
           <T data-testid="collection-name" id="collection_name" values={{ collectionName }} />
         </If>
       </Flex>
+      <If
+        condition={!isEmpty(artistName)}
+        otherwise={<T data-testid="preview-audio-unavailable" id="preview_audio_unavailable" />}
+      >
+        <audio src={previewUrl} controls />
+      </If>
       <If
         condition={!isEmpty(artistName)}
         otherwise={<T data-testid="artist-name-unavailable" id="artist_name_unavailable" />}
@@ -90,7 +97,8 @@ ArtistCard.propTypes = {
   collectionPrice: PropTypes.number,
   country: PropTypes.string,
   currency: PropTypes.string,
-  releaseDate: PropTypes.string
+  releaseDate: PropTypes.string,
+  previewUrl: PropTypes.string
 };
 
 export default ArtistCard;

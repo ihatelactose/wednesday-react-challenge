@@ -30,6 +30,12 @@ Object {
           </div>
           <p
             class="T__StyledText-gjlic1-0 kYcyRq"
+            data-testid="preview-audio-unavailable"
+          >
+            Sorry preview audio for this track is not available.
+          </p>
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq"
             data-testid="artist-name-unavailable"
           >
             Sorry this artist is not available.
@@ -74,6 +80,12 @@ Object {
             Sorry this collection is not available.
           </p>
         </div>
+        <p
+          class="T__StyledText-gjlic1-0 kYcyRq"
+          data-testid="preview-audio-unavailable"
+        >
+          Sorry preview audio for this track is not available.
+        </p>
         <p
           class="T__StyledText-gjlic1-0 kYcyRq"
           data-testid="artist-name-unavailable"

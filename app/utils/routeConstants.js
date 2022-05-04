@@ -1,5 +1,5 @@
 export default {
-  repos: {
+  artists: {
     route: '/',
     props: {
       maxwidth: 500,
@@ -7,8 +7,8 @@ export default {
     },
     exact: true
   },
-  artists: {
-    route: '/artists',
+  repos: {
+    route: '/repos',
     props: {
       maxwidth: 500,
       padding: 20

@@ -181,8 +181,8 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(
   injectIntl,
-  memo,
   withConnect,
+  memo,
   injectSaga({
     key: 'artistsContainer',
     saga: artistsContainerSaga

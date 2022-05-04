@@ -27,5 +27,6 @@
   "collection_price": "Price: {currency} {collectionPrice}",
   "collection_price_unavailable": "Sorry price is not available yet.",
   "release_date_unavailable": "Release date for this collection is not available.",
-  "release_date": "Release date {releaseDate}"
+  "release_date": "Release date {releaseDate}",
+  "preview_audio_unavailable": "Sorry preview audio for this track is not available."
 }
