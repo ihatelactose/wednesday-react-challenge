@@ -28,5 +28,8 @@
   "collection_price_unavailable": "Sorry price is not available yet.",
   "release_date_unavailable": "Release date for this collection is not available.",
   "release_date": "Release date {releaseDate}",
-  "preview_audio_unavailable": "Sorry preview audio for this track is not available."
+  "preview_audio_unavailable": "Sorry preview audio for this track is not available.",
+  "track_card_default_details": "More details on this.",
+  "to_artist": "Checkout the artist.",
+  "track_not_found": "No such track found."
 }

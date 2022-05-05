@@ -57,9 +57,12 @@ Object {
             mt="20"
             type="button"
           >
-            <span>
-              More Details on this!
-            </span>
+            <p
+              class="T__StyledText-gjlic1-0 kYcyRq"
+              data-testid="t"
+            >
+              More details on this.
+            </p>
           </button>
         </div>
       </div>
@@ -118,9 +121,12 @@ Object {
           mt="20"
           type="button"
         >
-          <span>
-            More Details on this!
-          </span>
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq"
+            data-testid="t"
+          >
+            More details on this.
+          </p>
         </button>
       </div>
     </div>

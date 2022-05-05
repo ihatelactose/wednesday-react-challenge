@@ -95,19 +95,6 @@ export function TrackDetails() {
     }
   }
 
-  const renderErrors = () => {
-    return (
-      !loading &&
-      error && (
-        <Card color="red">
-          <If condition={error} otherwise={<T data-testid="default-artist-message" id={'something_went_wrong'} />}>
-            <T data-testid="error-message" text={error} />
-          </If>
-        </Card>
-      )
-    );
-  };
-
   if (loading) {
     return (
       <Container data-testid="track-details" maxwidth={600} padding={20}>
@@ -119,13 +106,18 @@ export function TrackDetails() {
   if (!length) {
     return (
       <Container data-testid="track-details" maxwidth={600} padding={20}>
-        <Card data-testid="no-data-card">No such track found.</Card>
+        <Card data-testid="no-data-card">
+          <T id="track_not_found" />
+        </Card>
       </Container>
     );
   }
 
   return (
     <Container data-testid="track-details" maxwidth={600} padding={20}>
+      <If condition={error}>
+        <Card data-testid="error">{error}</Card>
+      </If>
       <If condition={details}>
         <Card data-testid="track-details-card">
           <Flex>
@@ -165,7 +157,7 @@ export function TrackDetails() {
           </If>
           <If condition={!isEmpty(details.artistViewUrl)}>
             <a href={details.artistViewUrl} rel="noreferrer" target="_blank">
-              Check out the artist!
+              <T id="to_artist" />
             </a>
           </If>
           <If
@@ -190,7 +182,6 @@ export function TrackDetails() {
           </If>
         </Card>
       </If>
-      {renderErrors()}
     </Container>
   );
 }

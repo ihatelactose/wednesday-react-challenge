@@ -130,7 +130,7 @@ export function TrackCard({
         />
       </If>
       <CustomButton onClick={handleDetailsClick} mt={20}>
-        More Details on this!
+        <T id="track_card_default_details" />
       </CustomButton>
     </CustomCard>
   );
