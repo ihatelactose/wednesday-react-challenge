@@ -1,22 +1,22 @@
 /**
  *
- * Tests for ArtistCard
+ * Tests for TrackCard
  *
  */
 
 import React from 'react';
-import ArtistCard from '../index';
+import TrackCard from '../index';
 import { renderWithIntl } from '@app/utils/testUtils';
 import { translate } from '@app/components/IntlGlobalProvider/index';
 
-describe('<ArtistCard />', () => {
+describe('<TrackCard />', () => {
   it('should render and match with the snapshot', () => {
-    const baseComponent = renderWithIntl(<ArtistCard />);
+    const baseComponent = renderWithIntl(<TrackCard />);
     expect(baseComponent).toMatchSnapshot();
   });
 
-  it('contains a ArtistCard component', () => {
-    const { getAllByTestId } = renderWithIntl(<ArtistCard />);
+  it('contains a TrackCard component', () => {
+    const { getAllByTestId } = renderWithIntl(<TrackCard />);
     expect(getAllByTestId('artist-card').length).toBe(1);
   });
 
@@ -31,7 +31,7 @@ describe('<ArtistCard />', () => {
     const releaseDate = '2022-01-09T12:00:00Z';
 
     const { getByTestId } = renderWithIntl(
-      <ArtistCard
+      <TrackCard
         artistName={artistName}
         artistViewUrl={artistViewUrl}
         artworkUrl100={artworkUrl100}
@@ -55,7 +55,7 @@ describe('<ArtistCard />', () => {
     const collectionPrice = translate('collection_price_unavailable');
     const releaseDate = translate('release_date_unavailable');
 
-    const { getByTestId } = renderWithIntl(<ArtistCard />);
+    const { getByTestId } = renderWithIntl(<TrackCard />);
 
     expect(getByTestId('artwork-url-unavailable')).toHaveTextContent(artworkUrl100);
     expect(getByTestId('artist-name-unavailable')).toHaveTextContent(artistName);

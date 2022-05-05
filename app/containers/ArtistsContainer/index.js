@@ -1,4 +1,4 @@
-import ArtistCard from '@app/components/ArtistCard/index';
+import TrackCard from '@app/components/TrackCard/index';
 import For from '@app/components/For/index';
 import If from '@app/components/If/index';
 import { T } from '@app/components/T/index';
@@ -94,7 +94,7 @@ export function ArtistsContainer({
             <For
               of={data}
               ParentComponent={Container}
-              renderItem={(item) => <ArtistCard key={item.trackId} {...item} />}
+              renderItem={(item) => <TrackCard key={item.trackId} {...item} />}
             />
           </Skeleton>
         </Card>

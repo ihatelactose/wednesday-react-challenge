@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ArtistCard /> should render and match with the snapshot 1`] = `
+exports[`<TrackCard /> should render and match with the snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
       <div
-        class="ant-card ant-card-bordered ArtistCard__CustomCard-sc-1ka74hw-0 QWPKW"
+        class="ant-card ant-card-bordered TrackCard__CustomCard-sc-10bk196-0 bcUGih"
         data-testid="artist-card"
       >
         <div
           class="ant-card-body"
         >
           <div
-            class="ArtistCard__Flex-sc-1ka74hw-1 dJWdjs"
+            class="TrackCard__Flex-sc-10bk196-1 eJxPar"
           >
             <p
               class="T__StyledText-gjlic1-0 kYcyRq"
@@ -58,14 +58,14 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="ant-card ant-card-bordered ArtistCard__CustomCard-sc-1ka74hw-0 QWPKW"
+      class="ant-card ant-card-bordered TrackCard__CustomCard-sc-10bk196-0 bcUGih"
       data-testid="artist-card"
     >
       <div
         class="ant-card-body"
       >
         <div
-          class="ArtistCard__Flex-sc-1ka74hw-1 dJWdjs"
+          class="TrackCard__Flex-sc-10bk196-1 eJxPar"
         >
           <p
             class="T__StyledText-gjlic1-0 kYcyRq"

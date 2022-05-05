@@ -1,6 +1,6 @@
 /**
  *
- * Artist Card
+ * Track Card
  *
  */
 
@@ -9,8 +9,8 @@ import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import If from '../If/index';
-import { T } from '../T/index';
+import If from '@components/If/index';
+import { T } from '@components/T/index';
 
 const CustomCard = styled(Card)`
   && {
@@ -24,7 +24,7 @@ const Flex = styled.div`
   margin-bottom: 10px;
 `;
 
-export function ArtistCard({
+export function TrackCard({
   artistName,
   artistViewUrl,
   artworkUrl100,
@@ -89,7 +89,7 @@ export function ArtistCard({
   );
 }
 
-ArtistCard.propTypes = {
+TrackCard.propTypes = {
   artistName: PropTypes.string,
   artistViewUrl: PropTypes.string,
   artworkUrl100: PropTypes.string,
@@ -101,4 +101,4 @@ ArtistCard.propTypes = {
   previewUrl: PropTypes.string
 };
 
-export default ArtistCard;
+export default TrackCard;
