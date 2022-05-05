@@ -19,6 +19,7 @@ describe('HomeContainer selector tests', () => {
       }
     };
   });
+
   it('should select the repoName', () => {
     const repoSelector = selectRepoName();
     expect(repoSelector(mockedState)).toEqual(repoName);
