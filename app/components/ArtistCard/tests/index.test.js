@@ -6,7 +6,8 @@
 
 import React from 'react';
 import ArtistCard from '../index';
-import { renderWithIntl } from '@app/utils/testUtils';
+import { renderWithIntl, timeout } from '@app/utils/testUtils';
+import { fireEvent } from '@testing-library/dom';
 import { translate } from '@app/components/IntlGlobalProvider/index';
 
 describe('<ArtistCard />', () => {
@@ -62,5 +63,38 @@ describe('<ArtistCard />', () => {
     expect(getByTestId('collection-name-unavailable')).toHaveTextContent(collectionName);
     expect(getByTestId('collection-price-unavailable')).toHaveTextContent(collectionPrice);
     expect(getByTestId('release-date-unavailable')).toHaveTextContent(releaseDate);
+  });
+
+  it('plays and pauses the song when the play/pause preview button is clicked', () => {
+    const clickSpy = jest.fn();
+    const previewUrl =
+      'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/a8/e1/fd/a8e1fd7c-b8af-3c54-6665-26f7093c29b6/mzaf_16989964717297819293.plus.aac.p.m4a';
+    const trackId = 12345;
+    const { getByTestId } = renderWithIntl(
+      <ArtistCard previewUrl={previewUrl} trackId={trackId} dispatchCurrentlyPlaying={clickSpy} />
+    );
+
+    const audioPreviewButton = getByTestId('preview-audio-button');
+
+    fireEvent.click(audioPreviewButton);
+    expect(clickSpy).toBeCalledWith(trackId);
+
+    fireEvent.click(audioPreviewButton);
+    expect(clickSpy).toBeCalledWith(null);
+  });
+
+  it('should auto-pause the track if the currentlyPlaying trackId is not equal to the selected trackId', async () => {
+    const trackId = 12345;
+    const currentlyPlaying = 54321;
+    const previewUrl =
+      'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/a8/e1/fd/a8e1fd7c-b8af-3c54-6665-26f7093c29b6/mzaf_16989964717297819293.plus.aac.p.m4a';
+    const { getByTestId } = renderWithIntl(
+      <ArtistCard previewUrl={previewUrl} trackId={trackId} currentlyPlaying={currentlyPlaying} />
+    );
+
+    await timeout(500);
+    const audioElement = getByTestId('preview-audio');
+
+    expect(audioElement.src).toEqual(previewUrl);
   });
 });

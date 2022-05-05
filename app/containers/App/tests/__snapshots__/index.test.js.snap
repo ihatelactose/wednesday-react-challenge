@@ -23,7 +23,7 @@ exports[`<App /> container tests should render and match the snapshot 1`] = `
     class="ant-layout-content"
   >
     <div
-      class="ArtistsContainer__Container-sc-1ouveu-0 iCfdlj"
+      class="ArtistsContainer__Container-sc-1ouveu-0 dEuTfa"
     >
       <div
         class="ant-card ant-card-bordered ArtistsContainer__Card-sc-1ouveu-1 eBvOXp"

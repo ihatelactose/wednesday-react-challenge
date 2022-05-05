@@ -1,4 +1,4 @@
-import { getArtists } from '@app/services/repoApi';
+import { getArtists } from '@app/services/artistsApi';
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { artistsContainerCreators, artistsContainerTypes } from './reducer';
 

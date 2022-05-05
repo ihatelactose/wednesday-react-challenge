@@ -18,6 +18,13 @@ export const selectArtistsData = () =>
   createSelector(selectArtistsContainerDomain, (substate) => get(substate, 'artistsData'));
 
 /**
+ * Selects the currently playing song id
+ * @returns {string} returns the currently playing track
+ */
+export const selectCurrentlyPlaying = () =>
+  createSelector(selectArtistsContainerDomain, (substate) => get(substate, 'currentlyPlaying'));
+
+/**
  * Selects the artists name
  * @returns {string} returns the selected artists name
  */

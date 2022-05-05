@@ -6,7 +6,7 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import artistsContainerSaga, { getArtistsByTerm } from '../saga';
 import { artistsContainerTypes } from '../reducer';
-import { getArtists } from '@app/services/repoApi';
+import { getArtists } from '@app/services/artistsApi';
 import { apiResponseGenerator } from '@app/utils/testUtils';
 
 describe('ArtistsContainer saga tests', () => {

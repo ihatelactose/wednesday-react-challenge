@@ -50,4 +50,16 @@ describe('ArtistsContainer reducer tests', () => {
       })
     ).toEqual(initialState);
   });
+
+  it('should update the currently playing state if the CURRENTLY_PLAYING is dispatched', () => {
+    const currentlyPlaying = 12345;
+    const expectedResult = { ...state, currentlyPlaying };
+
+    expect(
+      artistsContainerReducer(state, {
+        type: artistsContainerTypes.CURRENTLY_PLAYING,
+        trackId: currentlyPlaying
+      })
+    ).toEqual(expectedResult);
+  });
 });

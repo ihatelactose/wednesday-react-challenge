@@ -4,10 +4,10 @@
  *
  */
 
-import { Card, Image } from 'antd';
+import { Card, Image, Button } from 'antd';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import If from '../If/index';
 import { T } from '../T/index';
@@ -32,8 +32,36 @@ export function ArtistCard({
   collectionPrice,
   currency,
   releaseDate,
-  previewUrl
+  previewUrl,
+  currentlyPlaying,
+  trackId,
+  dispatchCurrentlyPlaying
 }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    if (audioRef) {
+      if (currentlyPlaying !== trackId) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  }, [currentlyPlaying]);
+
+  function handleOnPlay(evt) {
+    evt.preventDefault();
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+      dispatchCurrentlyPlaying(null);
+    } else {
+      audioRef.current.play();
+      setIsPlaying(true);
+      dispatchCurrentlyPlaying(trackId);
+    }
+  }
+
   return (
     <CustomCard data-testid="artist-card">
       <Flex>
@@ -53,10 +81,13 @@ export function ArtistCard({
         </If>
       </Flex>
       <If
-        condition={!isEmpty(artistName)}
+        condition={!isEmpty(previewUrl)}
         otherwise={<T data-testid="preview-audio-unavailable" id="preview_audio_unavailable" />}
       >
-        <audio src={previewUrl} controls />
+        <Button data-testid="preview-audio-button" onClick={handleOnPlay} type="primary">
+          {isPlaying ? 'Pause preview' : 'Play Preview'}
+        </Button>
+        <audio data-testid="preview-audio" ref={audioRef} src={previewUrl} />
       </If>
       <If
         condition={!isEmpty(artistName)}
@@ -98,7 +129,10 @@ ArtistCard.propTypes = {
   country: PropTypes.string,
   currency: PropTypes.string,
   releaseDate: PropTypes.string,
-  previewUrl: PropTypes.string
+  previewUrl: PropTypes.string,
+  currentlyPlaying: PropTypes.number,
+  dispatchCurrentlyPlaying: PropTypes.func,
+  trackId: PropTypes.number
 };
 
 export default ArtistCard;
