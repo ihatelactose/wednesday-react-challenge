@@ -110,7 +110,7 @@ export function TrackCard({
       </If>
       <If condition={!isEmpty(artistViewUrl)}>
         <a href={artistViewUrl} rel="noreferrer" target="_blank">
-          Check out the artist!
+          <T id="to_artist" />
         </a>
       </If>
       <If
