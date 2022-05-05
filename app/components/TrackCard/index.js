@@ -3,7 +3,6 @@
  * Track Card
  *
  */
-
 import { Card, Image, Button } from 'antd';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
@@ -11,6 +10,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import If from '@components/If/index';
 import { T } from '@components/T/index';
+import { useRouter } from '@app/hooks/useRouter';
 
 const CustomCard = styled(Card)`
   && {
@@ -22,6 +22,13 @@ const Flex = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+`;
+
+const CustomButton = styled(Button)`
+  margin-bottom: ${(props) => props.mb}px;
+  margin-top: ${(props) => props.mt}px;
+  margin-left: ${(props) => props.ml}px;
+  margin-right: ${(props) => props.mr}px;
 `;
 
 export function TrackCard({
@@ -38,6 +45,7 @@ export function TrackCard({
   dispatchCurrentlyPlaying
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const router = useRouter();
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -48,6 +56,11 @@ export function TrackCard({
       }
     }
   }, [currentlyPlaying]);
+
+  function handleDetailsClick(evt) {
+    evt.preventDefault();
+    router.push(`/track/${trackId}`);
+  }
 
   function handleOnPlay(evt) {
     evt.preventDefault();
@@ -116,6 +129,9 @@ export function TrackCard({
           values={{ releaseDate: new Date(releaseDate).toDateString() }}
         />
       </If>
+      <CustomButton onClick={handleDetailsClick} mt={20}>
+        More Details on this!
+      </CustomButton>
     </CustomCard>
   );
 }

@@ -7,6 +7,10 @@ export default {
     },
     exact: true
   },
+  trackDetails: {
+    route: '/track/:trackId',
+    exact: true
+  },
   repos: {
     route: '/repos',
     props: {

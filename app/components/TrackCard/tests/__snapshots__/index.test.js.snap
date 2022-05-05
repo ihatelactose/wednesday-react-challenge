@@ -52,6 +52,15 @@ Object {
           >
             Release date for this collection is not available.
           </p>
+          <button
+            class="ant-btn TrackCard__CustomButton-sc-10bk196-2 dIejRf"
+            mt="20"
+            type="button"
+          >
+            <span>
+              More Details on this!
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -104,6 +113,15 @@ Object {
         >
           Release date for this collection is not available.
         </p>
+        <button
+          class="ant-btn TrackCard__CustomButton-sc-10bk196-2 dIejRf"
+          mt="20"
+          type="button"
+        >
+          <span>
+            More Details on this!
+          </span>
+        </button>
       </div>
     </div>
   </div>,

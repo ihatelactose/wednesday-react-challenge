@@ -9,15 +9,24 @@ import TrackCard from '../index';
 import { renderWithIntl, timeout } from '@app/utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
 import { translate } from '@app/components/IntlGlobalProvider/index';
+import { BrowserRouter } from 'react-router-dom';
 
 describe('<TrackCard />', () => {
   it('should render and match with the snapshot', () => {
-    const baseComponent = renderWithIntl(<TrackCard />);
+    const baseComponent = renderWithIntl(
+      <BrowserRouter>
+        <TrackCard />
+      </BrowserRouter>
+    );
     expect(baseComponent).toMatchSnapshot();
   });
 
   it('contains a TrackCard component', () => {
-    const { getAllByTestId } = renderWithIntl(<TrackCard />);
+    const { getAllByTestId } = renderWithIntl(
+      <BrowserRouter>
+        <TrackCard />
+      </BrowserRouter>
+    );
     expect(getAllByTestId('artist-card').length).toBe(1);
   });
 
@@ -32,15 +41,17 @@ describe('<TrackCard />', () => {
     const releaseDate = '2022-01-09T12:00:00Z';
 
     const { getByTestId } = renderWithIntl(
-      <TrackCard
-        artistName={artistName}
-        artistViewUrl={artistViewUrl}
-        artworkUrl100={artworkUrl100}
-        collectionName={collectionName}
-        collectionPrice={collectionPrice}
-        currency={currency}
-        releaseDate={releaseDate}
-      />
+      <BrowserRouter>
+        <TrackCard
+          artistName={artistName}
+          artistViewUrl={artistViewUrl}
+          artworkUrl100={artworkUrl100}
+          collectionName={collectionName}
+          collectionPrice={collectionPrice}
+          currency={currency}
+          releaseDate={releaseDate}
+        />
+      </BrowserRouter>
     );
 
     expect(getByTestId('collection-name')).toHaveTextContent(collectionName);
@@ -56,7 +67,11 @@ describe('<TrackCard />', () => {
     const collectionPrice = translate('collection_price_unavailable');
     const releaseDate = translate('release_date_unavailable');
 
-    const { getByTestId } = renderWithIntl(<TrackCard />);
+    const { getByTestId } = renderWithIntl(
+      <BrowserRouter>
+        <TrackCard />
+      </BrowserRouter>
+    );
 
     expect(getByTestId('artwork-url-unavailable')).toHaveTextContent(artworkUrl100);
     expect(getByTestId('artist-name-unavailable')).toHaveTextContent(artistName);
@@ -71,7 +86,9 @@ describe('<TrackCard />', () => {
       'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/a8/e1/fd/a8e1fd7c-b8af-3c54-6665-26f7093c29b6/mzaf_16989964717297819293.plus.aac.p.m4a';
     const trackId = 12345;
     const { getByTestId } = renderWithIntl(
-      <TrackCard previewUrl={previewUrl} trackId={trackId} dispatchCurrentlyPlaying={clickSpy} />
+      <BrowserRouter>
+        <TrackCard previewUrl={previewUrl} trackId={trackId} dispatchCurrentlyPlaying={clickSpy} />
+      </BrowserRouter>
     );
 
     const audioPreviewButton = getByTestId('preview-audio-button');
@@ -89,7 +106,9 @@ describe('<TrackCard />', () => {
     const previewUrl =
       'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/a8/e1/fd/a8e1fd7c-b8af-3c54-6665-26f7093c29b6/mzaf_16989964717297819293.plus.aac.p.m4a';
     const { getByTestId } = renderWithIntl(
-      <TrackCard previewUrl={previewUrl} trackId={trackId} currentlyPlaying={currentlyPlaying} />
+      <BrowserRouter>
+        <TrackCard previewUrl={previewUrl} trackId={trackId} currentlyPlaying={currentlyPlaying} />
+      </BrowserRouter>
     );
 
     await timeout(500);
