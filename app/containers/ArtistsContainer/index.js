@@ -1,4 +1,4 @@
-import ArtistCard from '@app/components/ArtistCard/index';
+import TrackCard from '@app/components/TrackCard/index';
 import For from '@app/components/For/index';
 import If from '@app/components/If/index';
 import { T } from '@app/components/T/index';
@@ -106,7 +106,7 @@ export function ArtistsContainer({
               of={data}
               ParentComponent={Grid}
               renderItem={(item) => (
-                <ArtistCard
+                <TrackCard
                   currentlyPlaying={currentlyPlaying}
                   dispatchCurrentlyPlaying={dispatchCurrentlyPlaying}
                   key={item.trackId}

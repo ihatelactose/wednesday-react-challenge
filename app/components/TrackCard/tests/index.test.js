@@ -1,23 +1,23 @@
 /**
  *
- * Tests for ArtistCard
+ * Tests for TrackCard
  *
  */
 
 import React from 'react';
-import ArtistCard from '../index';
+import TrackCard from '../index';
 import { renderWithIntl, timeout } from '@app/utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
 import { translate } from '@app/components/IntlGlobalProvider/index';
 
-describe('<ArtistCard />', () => {
+describe('<TrackCard />', () => {
   it('should render and match with the snapshot', () => {
-    const baseComponent = renderWithIntl(<ArtistCard />);
+    const baseComponent = renderWithIntl(<TrackCard />);
     expect(baseComponent).toMatchSnapshot();
   });
 
-  it('contains a ArtistCard component', () => {
-    const { getAllByTestId } = renderWithIntl(<ArtistCard />);
+  it('contains a TrackCard component', () => {
+    const { getAllByTestId } = renderWithIntl(<TrackCard />);
     expect(getAllByTestId('artist-card').length).toBe(1);
   });
 
@@ -32,7 +32,7 @@ describe('<ArtistCard />', () => {
     const releaseDate = '2022-01-09T12:00:00Z';
 
     const { getByTestId } = renderWithIntl(
-      <ArtistCard
+      <TrackCard
         artistName={artistName}
         artistViewUrl={artistViewUrl}
         artworkUrl100={artworkUrl100}
@@ -56,7 +56,7 @@ describe('<ArtistCard />', () => {
     const collectionPrice = translate('collection_price_unavailable');
     const releaseDate = translate('release_date_unavailable');
 
-    const { getByTestId } = renderWithIntl(<ArtistCard />);
+    const { getByTestId } = renderWithIntl(<TrackCard />);
 
     expect(getByTestId('artwork-url-unavailable')).toHaveTextContent(artworkUrl100);
     expect(getByTestId('artist-name-unavailable')).toHaveTextContent(artistName);
@@ -71,7 +71,7 @@ describe('<ArtistCard />', () => {
       'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/a8/e1/fd/a8e1fd7c-b8af-3c54-6665-26f7093c29b6/mzaf_16989964717297819293.plus.aac.p.m4a';
     const trackId = 12345;
     const { getByTestId } = renderWithIntl(
-      <ArtistCard previewUrl={previewUrl} trackId={trackId} dispatchCurrentlyPlaying={clickSpy} />
+      <TrackCard previewUrl={previewUrl} trackId={trackId} dispatchCurrentlyPlaying={clickSpy} />
     );
 
     const audioPreviewButton = getByTestId('preview-audio-button');
@@ -89,7 +89,7 @@ describe('<ArtistCard />', () => {
     const previewUrl =
       'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/a8/e1/fd/a8e1fd7c-b8af-3c54-6665-26f7093c29b6/mzaf_16989964717297819293.plus.aac.p.m4a';
     const { getByTestId } = renderWithIntl(
-      <ArtistCard previewUrl={previewUrl} trackId={trackId} currentlyPlaying={currentlyPlaying} />
+      <TrackCard previewUrl={previewUrl} trackId={trackId} currentlyPlaying={currentlyPlaying} />
     );
 
     await timeout(500);
