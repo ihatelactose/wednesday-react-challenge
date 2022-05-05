@@ -3,14 +3,21 @@
  * Track Details
  *
  */
+import { artistsContainerCreators } from '@app/containers/ArtistsContainer/reducer';
+import { createStructuredSelector } from 'reselect';
+import artistsContainerSaga from '@app/containers/ArtistsContainer/saga';
 import { useRouter } from '@app/hooks/useRouter';
-import { getDetails } from '@app/services/artistsApi';
+import PropTypes from 'prop-types';
 import If from '@components/If/index';
 import { T } from '@components/T/index';
 import { Button, Card as AntDCard, Image as AntDImage } from 'antd';
 import { isEmpty } from 'lodash';
 import React, { useEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { injectSaga } from 'redux-injectors';
 import styled from 'styled-components';
+import { selectGetDetails, selectGetDetailsError } from '@app/containers/ArtistsContainer/selectors';
 
 const Container = styled.div`
   && {
@@ -51,38 +58,30 @@ const FColumn = styled.div`
   flex-direction: column;
 `;
 
-export function TrackDetails() {
+export function TrackDetails({ dispatchGetDetails, details, error }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [details, setDetails] = useState(null);
-  const [error, setError] = useState(undefined);
-  const [length, setLength] = useState(undefined);
   const router = useRouter();
   const audioRef = useRef(null);
-  const isMounted = useRef(true);
+
+  const { resultCount, results } = details;
 
   useEffect(() => {
-    if (isMounted) {
-      const fetchDetails = async () => {
-        try {
-          const { trackId } = router.query;
-          const data = await getDetails(trackId);
-          setDetails(data.data.results[0]);
-          setLength(data.data.resultCount);
-          setLoading(false);
-        } catch (err) {
-          setError(err);
-          setLoading(false);
-        }
-      };
+    if (router.query.trackId) {
+      setLoading(true);
+      dispatchGetDetails(router.query.trackId);
+    }
+  }, [router]);
 
-      fetchDetails();
+  useEffect(() => {
+    if (details.results) {
+      setLoading(false);
     }
 
-    return () => {
-      isMounted.current = false;
-    };
-  }, [isMounted]);
+    if (error) {
+      setLoading(false);
+    }
+  }, [details, error]);
 
   function handleOnPlay(evt) {
     evt.preventDefault();
@@ -103,7 +102,7 @@ export function TrackDetails() {
     );
   }
 
-  if (!length) {
+  if (!resultCount) {
     return (
       <Container data-testid="track-details" maxwidth={600} padding={20}>
         <Card data-testid="no-data-card">
@@ -112,6 +111,8 @@ export function TrackDetails() {
       </Container>
     );
   }
+
+  const track = results[0];
 
   return (
     <Container data-testid="track-details" maxwidth={600} padding={20}>
@@ -122,62 +123,62 @@ export function TrackDetails() {
         <Card data-testid="track-details-card">
           <Flex>
             <If
-              condition={!isEmpty(details.artworkUrl100)}
+              condition={!isEmpty(track.artworkUrl100)}
               otherwise={<T data-testid="artwork-unavailable" id="artwork_unavailable" />}
             >
-              <Image style={{ paddingRight: '20px' }} height={200} src={details.artworkUrl100} />
+              <Image style={{ paddingRight: '20px' }} height={200} src={track.artworkUrl100} />
             </If>
             <FColumn>
               <If
-                condition={!isEmpty(details.collectionName)}
+                condition={!isEmpty(track.collectionName)}
                 otherwise={<T data-testid="collection-name-unavailable" id="collection_name_unavailable" />}
               >
                 <T
                   data-testid="collection-name"
                   id="collection_name"
-                  values={{ collectionName: details.collectionName }}
+                  values={{ collectionName: track.collectionName }}
                 />
               </If>
               <If
-                condition={!isEmpty(details.previewUrl)}
+                condition={!isEmpty(track.previewUrl)}
                 otherwise={<T data-testid="preview-audio-unavailable" id="preview_audio_unavailable" />}
               >
                 <Button data-testid="preview-audio-button" onClick={handleOnPlay} type="primary">
                   {isPlaying ? 'Pause preview' : 'Play Preview'}
                 </Button>
-                <audio data-testid="preview-audio" ref={audioRef} src={details.previewUrl} />
+                <audio data-testid="preview-audio" ref={audioRef} src={track.previewUrl} />
               </If>
             </FColumn>
           </Flex>
           <If
-            condition={!isEmpty(details.artistName)}
+            condition={!isEmpty(track.artistName)}
             otherwise={<T data-testid="artist-name-unavailable" id="artist_name_unavailable" />}
           >
-            <T data-testid="artist-name" id="artist_name" values={{ artistName: details.artistName }} />
+            <T data-testid="artist-name" id="artist_name" values={{ artistName: track.artistName }} />
           </If>
-          <If condition={!isEmpty(details.artistViewUrl)}>
+          <If condition={!isEmpty(track.artistViewUrl)}>
             <a href={details.artistViewUrl} rel="noreferrer" target="_blank">
               <T id="to_artist" />
             </a>
           </If>
           <If
-            condition={!isNaN(details.collectionPrice)}
+            condition={!isNaN(track.collectionPrice)}
             otherwise={<T data-testid="collection-price-unavailable" id="collection_price_unavailable" />}
           >
             <T
               data-testid="collection-price"
               id="collection_price"
-              values={{ currency: details.currency, collectionPrice: details.collectionPrice }}
+              values={{ currency: track.currency, collectionPrice: track.collectionPrice }}
             />
           </If>
           <If
-            condition={!isEmpty(details.releaseDate)}
+            condition={!isEmpty(track.releaseDate)}
             otherwise={<T data-testid="release-date-unavailable" id="release_date_unavailable" />}
           >
             <T
               data-testid="release-date"
               id="release_date"
-              values={{ releaseDate: new Date(details.releaseDate).toDateString() }}
+              values={{ releaseDate: new Date(track.releaseDate).toDateString() }}
             />
           </If>
         </Card>
@@ -186,4 +187,31 @@ export function TrackDetails() {
   );
 }
 
-export default TrackDetails;
+TrackDetails.propTypes = {
+  details: PropTypes.object,
+  error: PropTypes.string,
+  dispatchGetDetails: PropTypes.func
+};
+
+const mapStateToProps = createStructuredSelector({
+  details: selectGetDetails(),
+  error: selectGetDetailsError()
+});
+
+export function mapDispatchToProps(dispatch) {
+  const { getDetails } = artistsContainerCreators;
+
+  return {
+    dispatchGetDetails: (trackId) => dispatch(getDetails(trackId))
+  };
+}
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(
+  withConnect,
+  injectSaga({
+    key: 'artistsContainer',
+    saga: artistsContainerSaga
+  })
+)(TrackDetails);

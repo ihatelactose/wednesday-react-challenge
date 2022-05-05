@@ -3,17 +3,26 @@
  * Tests for TrackDetails
  *
  */
+import configureStore from '@app/configureStore';
+import history from '@app/utils/history';
+import { renderWithIntl } from '@app/utils/testUtils';
 import React from 'react';
-import { renderWithIntl, timeout } from '@app/utils/testUtils';
-import TrackDetails from '../index';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
+import TrackDetails from '../index';
+
+const initialState = {};
+
+const { store } = configureStore(initialState, history);
 
 describe('<TrackDetails />', () => {
   const MockTrackDetails = () => {
     return (
-      <MemoryRouter query={{ trackId: 12345 }}>
-        <TrackDetails />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter query={{ trackId: 12345 }}>
+          <TrackDetails />
+        </MemoryRouter>
+      </Provider>
     );
   };
 
@@ -31,12 +40,5 @@ describe('<TrackDetails />', () => {
     const { getByTestId } = renderWithIntl(<MockTrackDetails />);
 
     expect(getByTestId('loading-card')).toBeInTheDocument();
-  });
-
-  it('should render "track not found" when the trackId is associated with nothing', async () => {
-    const { getByTestId } = renderWithIntl(<MockTrackDetails />);
-
-    await timeout(500);
-    expect(getByTestId('no-data-card')).toBeInTheDocument();
   });
 });
