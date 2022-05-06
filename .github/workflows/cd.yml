@@ -5,31 +5,34 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      BUCKET: sourav-react-challenge
+      DIST: build
+      REGION: ap-south-1
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: setup git token
-        uses: fregante/setup-git-token@v1
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.REGION }}
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn
 
-      - name: Deploy storybooks and gh-pages
-        env:
-          DEPLOY_KEY: ${{secrets.ACTIONS_DEPLOY_KEY}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        run: |
-          eval "$(ssh-agent -s)"
-          ssh-add - <<< "${DEPLOY_KEY}"
-          yarn deploy
-      - name: Set branch name
-        id: vars
-        run: echo ::set-output name=stage::${GITHUB_REF#refs/*/}
       - name: Create badges
         run: yarn run test:badges
+
       - name: Commit badges
         uses: EndBug/add-and-commit@v7
         with:
@@ -38,9 +41,16 @@ jobs:
           message: 'Update badges'
           add: 'badges/'
           push: false
-      - name: Pushing to a protected branch
-        uses: CasperWA/push-protected@v2
-        with:
-          token: ${{ secrets.PUSH_TO_PROTECTED_BRANCH }}
-          branch: ${{ steps.vars.outputs.stage }}
-          unprotect_reviews: true
+
+      - name: Build Static Website
+        run: yarn build
+
+      - name: Copy files to the production website with the AWS CLI
+        run: |
+          aws s3 sync --delete ${{ env.DIST }} s3://${{ env.BUCKET }}
+
+      - name: Copy files to the production website with the AWS CLI
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ env.DIST_ID }} \
+            --paths "/*"
