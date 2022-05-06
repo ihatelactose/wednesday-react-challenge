@@ -22,7 +22,7 @@ describe('ArtistsContainer saga tests', () => {
 
   it('should dispatch FAILURE_GET_ARTISTS once the request fails', () => {
     const res = getArtistsGenerator.next().value;
-    expect(res).toEqual(call(getArtists, artistName));
+    expect(res).toEqual(call(getArtists, artistName, 20));
 
     const errorReponse = {
       errorMessage: "Something went wrong, we're working on it."
@@ -39,7 +39,7 @@ describe('ArtistsContainer saga tests', () => {
   it('should dispatch SUCCESS_GET_ARTISTS once the request succeeds', () => {
     getArtistsGenerator = getArtistsByTerm({ artistsName: artistName });
     const res = getArtistsGenerator.next().value;
-    expect(res).toEqual(call(getArtists, artistName));
+    expect(res).toEqual(call(getArtists, artistName, 20));
 
     const response = {
       resultCount: 1,
