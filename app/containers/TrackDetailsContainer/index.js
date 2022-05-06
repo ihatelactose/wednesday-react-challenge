@@ -3,9 +3,9 @@
  * Track Details
  *
  */
-import { artistsContainerCreators } from '@app/containers/ArtistsContainer/reducer';
+import { trackDetailsContainerCreators } from '@app/containers/TrackDetailsContainer/reducer';
 import { createStructuredSelector } from 'reselect';
-import artistsContainerSaga from '@app/containers/ArtistsContainer/saga';
+import trackDetailsContainerSaga from '@app/containers/TrackDetailsContainer/saga';
 import { useRouter } from '@app/hooks/useRouter';
 import PropTypes from 'prop-types';
 import If from '@components/If/index';
@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
 import styled from 'styled-components';
-import { selectGetDetails, selectGetDetailsError } from '@app/containers/ArtistsContainer/selectors';
+import { selectGetDetails, selectGetDetailsError } from '@app/containers/TrackDetailsContainer/selectors';
 
 const Container = styled.div`
   && {
@@ -199,7 +199,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 export function mapDispatchToProps(dispatch) {
-  const { getDetails } = artistsContainerCreators;
+  const { getDetails } = trackDetailsContainerCreators;
 
   return {
     dispatchGetDetails: (trackId) => dispatch(getDetails(trackId))
@@ -211,7 +211,7 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 export default compose(
   withConnect,
   injectSaga({
-    key: 'artistsContainer',
-    saga: artistsContainerSaga
+    key: 'trackDetailsSaga',
+    saga: trackDetailsContainerSaga
   })
 )(TrackDetails);

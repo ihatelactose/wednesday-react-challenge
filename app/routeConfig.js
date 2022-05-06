@@ -2,7 +2,7 @@ import NotFound from '@containers/NotFoundPage/Loadable';
 import HomeContainer from '@containers/HomeContainer/Loadable';
 import routeConstants from '@utils/routeConstants';
 import ArtistsContainer from '@containers/ArtistsContainer/index';
-import TrackDetails from './components/TrackDetails/index';
+import TrackDetailsContainer from './containers/TrackDetailsContainer/index';
 
 export const routeConfig = {
   artists: {
@@ -10,7 +10,7 @@ export const routeConfig = {
     ...routeConstants.artists
   },
   trackDetails: {
-    component: TrackDetails,
+    component: TrackDetailsContainer,
     ...routeConstants.trackDetails
   },
   repos: {
