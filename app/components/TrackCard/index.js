@@ -10,7 +10,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import If from '@components/If/index';
 import { T } from '@components/T/index';
-import { useRouter } from '@app/hooks/useRouter';
+import { useRouter } from '@app/utils/useRouter';
 
 const CustomCard = styled(Card)`
   && {

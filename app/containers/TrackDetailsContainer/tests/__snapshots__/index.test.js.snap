@@ -16,7 +16,7 @@ Object {
           <div
             class="ant-card-body"
           >
-            Loading...
+            Loading again...
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@ Object {
         <div
           class="ant-card-body"
         >
-          Loading...
+          Loading again...
         </div>
       </div>
     </div>

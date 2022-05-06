@@ -10,9 +10,19 @@ describe('TrackDetailsContainer reducer tests', () => {
     expect(trackDetailsContainerReducer(undefined, {})).toEqual(state);
   });
 
+  it('should return loading true when an action of type GET_DETAILS is dispatched', () => {
+    const expectedResult = { ...state, loading: true };
+
+    expect(
+      trackDetailsContainerReducer(state, {
+        type: trackDetailsContainerTypes.GET_DETAILS
+      })
+    ).toEqual(expectedResult);
+  });
+
   it('should return data when an action of type SUCCESS_GET_DETAILS is dispatched', () => {
     const data = { collectionName: 'Stromae' };
-    const expectedResult = { ...state, getDetails: data };
+    const expectedResult = { ...state, getDetails: data, loading: false };
 
     expect(
       trackDetailsContainerReducer(state, {
@@ -24,7 +34,7 @@ describe('TrackDetailsContainer reducer tests', () => {
 
   it('should return error when an action of type FAILURE_GET_DETAILS is dispatched', () => {
     const error = 'something_went_wrong';
-    const expectedResult = { ...state, getDetailsError: error };
+    const expectedResult = { ...state, getDetailsError: error, loading: false };
 
     expect(
       trackDetailsContainerReducer(state, {

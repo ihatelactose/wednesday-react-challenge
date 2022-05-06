@@ -23,3 +23,10 @@ export const selectGetDetails = () =>
  */
 export const selectGetDetailsError = () =>
   createSelector(selectTrackDetailsContainerDomain, (substate) => get(substate, 'getDetailsError'));
+
+/**
+ * Selects the loading state for the getDetails
+ * @returns {boolean} returns if the data is loading
+ */
+export const selectGetDetailsLoading = () =>
+  createSelector(selectTrackDetailsContainerDomain, (substate) => get(substate, 'loading'));
