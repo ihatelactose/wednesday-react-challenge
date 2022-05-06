@@ -6,7 +6,7 @@ const { REQUEST_GET_ARTISTS, GET_DETAILS } = artistsContainerTypes;
 const { successGetArtists, failureGetArtists, successGetDetails, failureGetDetails } = artistsContainerCreators;
 
 export function* getArtistsByTerm(action) {
-  const response = yield call(getArtists, action.artistsName);
+  const response = yield call(getArtists, action.artistsName, 20);
   const { data, ok } = response;
 
   if (ok) {
