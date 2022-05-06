@@ -18,6 +18,13 @@ export const selectArtistsData = () =>
   createSelector(selectArtistsContainerDomain, (substate) => get(substate, 'artistsData'));
 
 /**
+ * Selects the currently playing song id
+ * @returns {string} returns the currently playing track
+ */
+export const selectCurrentlyPlaying = () =>
+  createSelector(selectArtistsContainerDomain, (substate) => get(substate, 'currentlyPlaying'));
+
+/**
  * Selects the artists name
  * @returns {string} returns the selected artists name
  */
@@ -30,3 +37,17 @@ export const selectArtistsName = () =>
  */
 export const selectArtistsError = () =>
   createSelector(selectArtistsContainerDomain, (substate) => get(substate, 'artistsError'));
+
+/**
+ * Selects the details for the current track
+ * @returns {object} returns the selected details
+ */
+export const selectGetDetails = () =>
+  createSelector(selectArtistsContainerDomain, (substate) => get(substate, 'getDetails'));
+
+/**
+ * Selects the getDetails error if occured
+ * @returns {string} returns the selected getDetails error
+ */
+export const selectGetDetailsError = () =>
+  createSelector(selectArtistsContainerDomain, (substate) => get(substate, 'getDetailsError'));

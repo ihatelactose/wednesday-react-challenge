@@ -50,4 +50,40 @@ describe('ArtistsContainer reducer tests', () => {
       })
     ).toEqual(initialState);
   });
+
+  it('should update the currently playing state if the CURRENTLY_PLAYING is dispatched', () => {
+    const currentlyPlaying = 12345;
+    const expectedResult = { ...state, currentlyPlaying };
+
+    expect(
+      artistsContainerReducer(state, {
+        type: artistsContainerTypes.CURRENTLY_PLAYING,
+        trackId: currentlyPlaying
+      })
+    ).toEqual(expectedResult);
+  });
+
+  it('should return data when an action of type SUCCESS_GET_DETAILS is dispatched', () => {
+    const data = { collectionName: 'Stromae' };
+    const expectedResult = { ...state, getDetails: data };
+
+    expect(
+      artistsContainerReducer(state, {
+        type: artistsContainerTypes.SUCCESS_GET_DETAILS,
+        data
+      })
+    ).toEqual(expectedResult);
+  });
+
+  it('should return error when an action of type FAILURE_GET_DETAILS is dispatched', () => {
+    const error = 'something_went_wrong';
+    const expectedResult = { ...state, getDetailsError: error };
+
+    expect(
+      artistsContainerReducer(state, {
+        type: artistsContainerTypes.FAILURE_GET_DETAILS,
+        error
+      })
+    ).toEqual(expectedResult);
+  });
 });

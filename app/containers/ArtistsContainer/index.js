@@ -14,7 +14,7 @@ import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import { artistsContainerCreators } from './reducer';
 import artistsContainerSaga from './saga';
-import { selectArtistsData, selectArtistsError, selectArtistsName } from './selectors';
+import { selectArtistsData, selectArtistsError, selectArtistsName, selectCurrentlyPlaying } from './selectors';
 
 const Container = styled.div`
   && {
@@ -36,6 +36,15 @@ const Card = styled(AntDCard)`
   }
 `;
 
+const Grid = styled.div`
+  && {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+  }
+`;
+
 export function ArtistsContainer({
   maxwidth,
   padding,
@@ -44,7 +53,9 @@ export function ArtistsContainer({
   artistsName,
   intl,
   dispatchGetArtists,
-  dispatchClearArtists
+  dispatchClearArtists,
+  dispatchCurrentlyPlaying,
+  currentlyPlaying
 }) {
   const [loading, setLoading] = useState(false);
 
@@ -79,7 +90,7 @@ export function ArtistsContainer({
 
     return (
       <If condition={!isEmpty(data) || loading}>
-        <Card>
+        <Card maxwidth={'100%'}>
           <Skeleton loading={loading} active>
             <If condition={!isEmpty(artistsName)}>
               <div>
@@ -93,8 +104,15 @@ export function ArtistsContainer({
             </If>
             <For
               of={data}
-              ParentComponent={Container}
-              renderItem={(item) => <TrackCard key={item.trackId} {...item} />}
+              ParentComponent={Grid}
+              renderItem={(item) => (
+                <TrackCard
+                  currentlyPlaying={currentlyPlaying}
+                  dispatchCurrentlyPlaying={dispatchCurrentlyPlaying}
+                  key={item.trackId}
+                  {...item}
+                />
+              )}
             />
           </Skeleton>
         </Card>
@@ -123,7 +141,7 @@ export function ArtistsContainer({
   };
 
   return (
-    <Container maxwidth={maxwidth} padding={padding}>
+    <Container maxwidth={'100%'} padding={padding}>
       <Card title={intl.formatMessage({ id: 'artist_search' })} maxwidth={maxwidth}>
         <T marginBottom={10} id="get_artist_details" />
         <Input.Search
@@ -151,8 +169,10 @@ ArtistsContainer.propTypes = {
   artistsName: PropTypes.string,
   artistsError: PropTypes.string,
   intl: PropTypes.object,
+  currentlyPlaying: PropTypes.number,
   dispatchGetArtists: PropTypes.func,
-  dispatchClearArtists: PropTypes.func
+  dispatchClearArtists: PropTypes.func,
+  dispatchCurrentlyPlaying: PropTypes.func
 };
 
 ArtistsContainer.defaultProps = {
@@ -165,15 +185,17 @@ ArtistsContainer.defaultProps = {
 const mapStateToProps = createStructuredSelector({
   artistsData: selectArtistsData(),
   artistsName: selectArtistsName(),
-  artistsError: selectArtistsError()
+  artistsError: selectArtistsError(),
+  currentlyPlaying: selectCurrentlyPlaying()
 });
 
 export function mapDispatchToProps(dispatch) {
-  const { requestGetArtists, clearArtists } = artistsContainerCreators;
+  const { requestGetArtists, clearArtists, currentlyPlaying } = artistsContainerCreators;
 
   return {
     dispatchGetArtists: (artistsName) => dispatch(requestGetArtists(artistsName)),
-    dispatchClearArtists: () => dispatch(clearArtists())
+    dispatchClearArtists: () => dispatch(clearArtists()),
+    dispatchCurrentlyPlaying: (trackId) => dispatch(currentlyPlaying(trackId))
   };
 }
 

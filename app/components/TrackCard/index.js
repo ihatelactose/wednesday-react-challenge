@@ -3,14 +3,14 @@
  * Track Card
  *
  */
-
-import { Card, Image } from 'antd';
+import { Card, Image, Button } from 'antd';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import If from '@components/If/index';
 import { T } from '@components/T/index';
+import { useRouter } from '@app/hooks/useRouter';
 
 const CustomCard = styled(Card)`
   && {
@@ -24,6 +24,13 @@ const Flex = styled.div`
   margin-bottom: 10px;
 `;
 
+const CustomButton = styled(Button)`
+  margin-bottom: ${(props) => props.mb}px;
+  margin-top: ${(props) => props.mt}px;
+  margin-left: ${(props) => props.ml}px;
+  margin-right: ${(props) => props.mr}px;
+`;
+
 export function TrackCard({
   artistName,
   artistViewUrl,
@@ -32,8 +39,42 @@ export function TrackCard({
   collectionPrice,
   currency,
   releaseDate,
-  previewUrl
+  previewUrl,
+  currentlyPlaying,
+  trackId,
+  dispatchCurrentlyPlaying
 }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const router = useRouter();
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      if (currentlyPlaying !== trackId) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  }, [currentlyPlaying, audioRef.current]);
+
+  function handleDetailsClick(evt) {
+    evt.preventDefault();
+    router.push(`/track/${trackId}`);
+  }
+
+  function handleOnPlay(evt) {
+    evt.preventDefault();
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+      dispatchCurrentlyPlaying(null);
+    } else {
+      audioRef.current.play();
+      setIsPlaying(true);
+      dispatchCurrentlyPlaying(trackId);
+    }
+  }
+
   return (
     <CustomCard data-testid="artist-card">
       <Flex>
@@ -53,10 +94,13 @@ export function TrackCard({
         </If>
       </Flex>
       <If
-        condition={!isEmpty(artistName)}
+        condition={!isEmpty(previewUrl)}
         otherwise={<T data-testid="preview-audio-unavailable" id="preview_audio_unavailable" />}
       >
-        <audio src={previewUrl} controls />
+        <Button data-testid="preview-audio-button" onClick={handleOnPlay} type="primary">
+          {isPlaying ? 'Pause preview' : 'Play Preview'}
+        </Button>
+        <audio data-testid="preview-audio" ref={audioRef} src={previewUrl} />
       </If>
       <If
         condition={!isEmpty(artistName)}
@@ -66,7 +110,7 @@ export function TrackCard({
       </If>
       <If condition={!isEmpty(artistViewUrl)}>
         <a href={artistViewUrl} rel="noreferrer" target="_blank">
-          Check out the artist!
+          <T id="to_artist" />
         </a>
       </If>
       <If
@@ -85,6 +129,9 @@ export function TrackCard({
           values={{ releaseDate: new Date(releaseDate).toDateString() }}
         />
       </If>
+      <CustomButton onClick={handleDetailsClick} mt={20}>
+        <T id="track_card_default_details" />
+      </CustomButton>
     </CustomCard>
   );
 }
@@ -98,7 +145,10 @@ TrackCard.propTypes = {
   country: PropTypes.string,
   currency: PropTypes.string,
   releaseDate: PropTypes.string,
-  previewUrl: PropTypes.string
+  previewUrl: PropTypes.string,
+  currentlyPlaying: PropTypes.number,
+  dispatchCurrentlyPlaying: PropTypes.func,
+  trackId: PropTypes.number
 };
 
 export default TrackCard;

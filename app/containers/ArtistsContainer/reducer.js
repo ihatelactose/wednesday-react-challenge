@@ -10,10 +10,21 @@ export const { Types: artistsContainerTypes, Creators: artistsContainerCreators 
   requestGetArtists: ['artistsName'],
   successGetArtists: ['data'],
   failureGetArtists: ['error'],
-  clearArtists: {}
+  currentlyPlaying: ['trackId'],
+  clearArtists: {},
+  getDetails: ['trackId'],
+  successGetDetails: ['data'],
+  failureGetDetails: ['error']
 });
 
-export const initialState = { artistsName: null, artistsData: {}, artistsError: null };
+export const initialState = {
+  artistsName: null,
+  artistsData: {},
+  artistsError: null,
+  currentlyPlaying: null,
+  getDetails: {},
+  getDetailsError: null
+};
 
 export const artistsContainerReducer = (state = initialState, action) =>
   produce(state, (draft) => {
@@ -30,6 +41,21 @@ export const artistsContainerReducer = (state = initialState, action) =>
 
       case artistsContainerTypes.FAILURE_GET_ARTISTS: {
         draft.artistsError = action.error;
+        break;
+      }
+
+      case artistsContainerTypes.CURRENTLY_PLAYING: {
+        draft.currentlyPlaying = action.trackId;
+        break;
+      }
+
+      case artistsContainerTypes.SUCCESS_GET_DETAILS: {
+        draft.getDetails = action.data;
+        break;
+      }
+
+      case artistsContainerTypes.FAILURE_GET_DETAILS: {
+        draft.getDetailsError = action.error;
         break;
       }
 
