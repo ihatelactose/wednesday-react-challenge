@@ -12,6 +12,9 @@ import { translate } from '@app/components/IntlGlobalProvider/index';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('<TrackCard />', () => {
+  jest.spyOn(window.HTMLMediaElement.prototype, 'pause').mockImplementation(() => {});
+  jest.spyOn(window.HTMLMediaElement.prototype, 'play').mockImplementation(() => {});
+
   it('should render and match with the snapshot', () => {
     const baseComponent = renderWithIntl(
       <BrowserRouter>

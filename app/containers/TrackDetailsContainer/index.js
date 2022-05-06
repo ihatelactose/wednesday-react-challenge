@@ -68,20 +68,19 @@ export function TrackDetails({ dispatchGetDetails, details, error }) {
 
   useEffect(() => {
     if (router.query.trackId) {
-      setLoading(true);
       dispatchGetDetails(router.query.trackId);
     }
   }, [router]);
 
   useEffect(() => {
-    if (details.results) {
+    if (details.results || resultCount === 0) {
       setLoading(false);
     }
 
     if (error) {
       setLoading(false);
     }
-  }, [details, error]);
+  }, [details, error, resultCount]);
 
   function handleOnPlay(evt) {
     evt.preventDefault();

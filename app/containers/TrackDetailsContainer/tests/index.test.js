@@ -17,6 +17,8 @@ const { store } = configureStore(initialState, history);
 
 describe('<TrackDetails />', () => {
   const trackId = 12345;
+  jest.spyOn(window.HTMLMediaElement.prototype, 'pause').mockImplementation(() => {});
+  jest.spyOn(window.HTMLMediaElement.prototype, 'play').mockImplementation(() => {});
 
   const MockTrackDetails = (props) => {
     return (

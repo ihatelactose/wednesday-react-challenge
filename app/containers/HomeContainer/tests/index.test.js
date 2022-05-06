@@ -16,10 +16,19 @@ import { createBrowserHistory } from 'history';
 
 describe('<HomeContainer /> tests', () => {
   let submitSpy;
+  let assignMock = jest.fn();
+
+  delete window.location;
+  window.location = { reload: assignMock };
 
   beforeEach(() => {
     submitSpy = jest.fn();
   });
+
+  afterEach(() => {
+    assignMock.mockClear();
+  });
+
   it('should render and match the snapshot', () => {
     const { baseElement } = renderProvider(<HomeContainer dispatchGithubRepos={submitSpy} />);
     expect(baseElement).toMatchSnapshot();
