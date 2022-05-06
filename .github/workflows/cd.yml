@@ -6,10 +6,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      BUCKET: sourav-react-challenge
+      BUCKET: ${{ secrets.AWS_BUCKET }}
       DIST: build
-      REGION: ap-south-1
-      DIST_ID: E25EG20LZNYQ7R
+      REGION: ${{ secrets.AWS_REGION }}
+      DIST_ID: ${{ secrets.AWS_CLOUDFRONT_DIST_ID }}
 
     steps:
       - name: Checkout
