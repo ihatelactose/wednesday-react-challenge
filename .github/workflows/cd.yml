@@ -9,6 +9,7 @@ jobs:
       BUCKET: sourav-react-challenge
       DIST: build
       REGION: ap-south-1
+      DIST_ID: E25EG20LZNYQ7R
 
     steps:
       - name: Checkout
