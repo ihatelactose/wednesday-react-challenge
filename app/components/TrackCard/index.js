@@ -49,13 +49,13 @@ export function TrackCard({
   const audioRef = useRef(null);
 
   useEffect(() => {
-    if (audioRef) {
+    if (audioRef.current) {
       if (currentlyPlaying !== trackId) {
         audioRef.current.pause();
         setIsPlaying(false);
       }
     }
-  }, [currentlyPlaying]);
+  }, [currentlyPlaying, audioRef.current]);
 
   function handleDetailsClick(evt) {
     evt.preventDefault();

@@ -16,11 +16,13 @@ const initialState = {};
 const { store } = configureStore(initialState, history);
 
 describe('<TrackDetails />', () => {
-  const MockTrackDetails = () => {
+  const trackId = 12345;
+
+  const MockTrackDetails = (props) => {
     return (
       <Provider store={store}>
-        <MemoryRouter query={{ trackId: 12345 }}>
-          <TrackDetails />
+        <MemoryRouter query={{ trackId }}>
+          <TrackDetails {...props} />
         </MemoryRouter>
       </Provider>
     );
