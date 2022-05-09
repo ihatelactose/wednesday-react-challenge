@@ -1,4 +1,5 @@
 {
+  "loading": "Loading...",
   "repo_list": "Repository List",
   "repo_search": "Repository Search",
   "repo_search_default": "Search for a repository by entering it's name in the search box",

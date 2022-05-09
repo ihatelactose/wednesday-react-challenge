@@ -3,21 +3,25 @@
  * Track Details
  *
  */
-import { artistsContainerCreators } from '@app/containers/ArtistsContainer/reducer';
+import { trackDetailsContainerCreators } from '@app/containers/TrackDetailsContainer/reducer';
 import { createStructuredSelector } from 'reselect';
-import artistsContainerSaga from '@app/containers/ArtistsContainer/saga';
-import { useRouter } from '@app/hooks/useRouter';
+import trackDetailsContainerSaga from '@app/containers/TrackDetailsContainer/saga';
+import { useRouter } from '@app/utils/useRouter';
 import PropTypes from 'prop-types';
 import If from '@components/If/index';
 import { T } from '@components/T/index';
 import { Button, Card as AntDCard, Image as AntDImage } from 'antd';
 import { isEmpty } from 'lodash';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
 import styled from 'styled-components';
-import { selectGetDetails, selectGetDetailsError } from '@app/containers/ArtistsContainer/selectors';
+import {
+  selectGetDetails,
+  selectGetDetailsError,
+  selectGetDetailsLoading
+} from '@app/containers/TrackDetailsContainer/selectors';
 
 const Container = styled.div`
   && {
@@ -58,9 +62,8 @@ const FColumn = styled.div`
   flex-direction: column;
 `;
 
-export function TrackDetails({ dispatchGetDetails, details, error }) {
+export function TrackDetails({ dispatchGetDetails, details, error, loading }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const audioRef = useRef(null);
 
@@ -68,20 +71,9 @@ export function TrackDetails({ dispatchGetDetails, details, error }) {
 
   useEffect(() => {
     if (router.query.trackId) {
-      setLoading(true);
       dispatchGetDetails(router.query.trackId);
     }
   }, [router]);
-
-  useEffect(() => {
-    if (details.results) {
-      setLoading(false);
-    }
-
-    if (error) {
-      setLoading(false);
-    }
-  }, [details, error]);
 
   function handleOnPlay(evt) {
     evt.preventDefault();
@@ -97,7 +89,9 @@ export function TrackDetails({ dispatchGetDetails, details, error }) {
   if (loading) {
     return (
       <Container data-testid="track-details" maxwidth={600} padding={20}>
-        <Card data-testid="loading-card">Loading...</Card>
+        <Card data-testid="loading-card">
+          <T id="loading" />
+        </Card>
       </Container>
     );
   }
@@ -117,7 +111,9 @@ export function TrackDetails({ dispatchGetDetails, details, error }) {
   return (
     <Container data-testid="track-details" maxwidth={600} padding={20}>
       <If condition={error}>
-        <Card data-testid="error">{error}</Card>
+        <Card data-testid="error">
+          <T id="something-went-wrong" />
+        </Card>
       </If>
       <If condition={details}>
         <Card data-testid="track-details-card">
@@ -189,17 +185,19 @@ export function TrackDetails({ dispatchGetDetails, details, error }) {
 
 TrackDetails.propTypes = {
   details: PropTypes.object,
-  error: PropTypes.string,
-  dispatchGetDetails: PropTypes.func
+  error: PropTypes.object,
+  dispatchGetDetails: PropTypes.func,
+  loading: PropTypes.bool
 };
 
 const mapStateToProps = createStructuredSelector({
   details: selectGetDetails(),
-  error: selectGetDetailsError()
+  error: selectGetDetailsError(),
+  loading: selectGetDetailsLoading()
 });
 
 export function mapDispatchToProps(dispatch) {
-  const { getDetails } = artistsContainerCreators;
+  const { getDetails } = trackDetailsContainerCreators;
 
   return {
     dispatchGetDetails: (trackId) => dispatch(getDetails(trackId))
@@ -209,9 +207,10 @@ export function mapDispatchToProps(dispatch) {
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(
+  memo,
   withConnect,
   injectSaga({
-    key: 'artistsContainer',
-    saga: artistsContainerSaga
+    key: 'trackDetailsSaga',
+    saga: trackDetailsContainerSaga
   })
 )(TrackDetails);

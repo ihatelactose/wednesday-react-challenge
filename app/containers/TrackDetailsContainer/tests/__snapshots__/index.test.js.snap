@@ -6,17 +6,22 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="TrackDetails__Container-sc-18wb0c5-0 fIqOIj"
+        class="TrackDetailsContainer__Container-mse3j7-0 gcJcdi"
         data-testid="track-details"
       >
         <div
-          class="ant-card ant-card-bordered TrackDetails__Card-sc-18wb0c5-1 kHTrtL"
+          class="ant-card ant-card-bordered TrackDetailsContainer__Card-mse3j7-1 gLwJQS"
           data-testid="loading-card"
         >
           <div
             class="ant-card-body"
           >
-            Loading...
+            <p
+              class="T__StyledText-gjlic1-0 kYcyRq"
+              data-testid="t"
+            >
+              Loading...
+            </p>
           </div>
         </div>
       </div>
@@ -24,17 +29,22 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="TrackDetails__Container-sc-18wb0c5-0 fIqOIj"
+      class="TrackDetailsContainer__Container-mse3j7-0 gcJcdi"
       data-testid="track-details"
     >
       <div
-        class="ant-card ant-card-bordered TrackDetails__Card-sc-18wb0c5-1 kHTrtL"
+        class="ant-card ant-card-bordered TrackDetailsContainer__Card-mse3j7-1 gLwJQS"
         data-testid="loading-card"
       >
         <div
           class="ant-card-body"
         >
-          Loading...
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq"
+            data-testid="t"
+          >
+            Loading...
+          </p>
         </div>
       </div>
     </div>
