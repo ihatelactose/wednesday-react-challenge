@@ -16,7 +16,12 @@ Object {
           <div
             class="ant-card-body"
           >
-            Loading again...
+            <p
+              class="T__StyledText-gjlic1-0 kYcyRq"
+              data-testid="t"
+            >
+              Loading...
+            </p>
           </div>
         </div>
       </div>
@@ -34,7 +39,12 @@ Object {
         <div
           class="ant-card-body"
         >
-          Loading again...
+          <p
+            class="T__StyledText-gjlic1-0 kYcyRq"
+            data-testid="t"
+          >
+            Loading...
+          </p>
         </div>
       </div>
     </div>

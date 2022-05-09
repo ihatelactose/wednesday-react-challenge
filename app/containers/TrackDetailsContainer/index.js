@@ -89,7 +89,9 @@ export function TrackDetails({ dispatchGetDetails, details, error, loading }) {
   if (loading) {
     return (
       <Container data-testid="track-details" maxwidth={600} padding={20}>
-        <Card data-testid="loading-card">Loading again...</Card>
+        <Card data-testid="loading-card">
+          <T id="loading" />
+        </Card>
       </Container>
     );
   }
