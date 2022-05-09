@@ -111,7 +111,9 @@ export function TrackDetails({ dispatchGetDetails, details, error, loading }) {
   return (
     <Container data-testid="track-details" maxwidth={600} padding={20}>
       <If condition={error}>
-        <Card data-testid="error">{error}</Card>
+        <Card data-testid="error">
+          <T id="something-went-wrong" />
+        </Card>
       </If>
       <If condition={details}>
         <Card data-testid="track-details-card">
@@ -183,7 +185,7 @@ export function TrackDetails({ dispatchGetDetails, details, error, loading }) {
 
 TrackDetails.propTypes = {
   details: PropTypes.object,
-  error: PropTypes.string,
+  error: PropTypes.object,
   dispatchGetDetails: PropTypes.func,
   loading: PropTypes.bool
 };

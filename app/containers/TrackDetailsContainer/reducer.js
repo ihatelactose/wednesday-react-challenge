@@ -23,6 +23,7 @@ export const trackDetailsContainerReducer = (state = initialState, action) =>
     switch (action.type) {
       case trackDetailsContainerTypes.GET_DETAILS: {
         draft.loading = true;
+        draft.getDetails = {};
         break;
       }
 
@@ -34,6 +35,7 @@ export const trackDetailsContainerReducer = (state = initialState, action) =>
 
       case trackDetailsContainerTypes.FAILURE_GET_DETAILS: {
         draft.getDetailsError = action.error;
+        draft.getDetails = {};
         draft.loading = false;
         break;
       }
