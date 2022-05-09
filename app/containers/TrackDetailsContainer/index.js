@@ -12,7 +12,7 @@ import If from '@components/If/index';
 import { T } from '@components/T/index';
 import { Button, Card as AntDCard, Image as AntDImage } from 'antd';
 import { isEmpty } from 'lodash';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
@@ -205,6 +205,7 @@ export function mapDispatchToProps(dispatch) {
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(
+  memo,
   withConnect,
   injectSaga({
     key: 'trackDetailsSaga',
